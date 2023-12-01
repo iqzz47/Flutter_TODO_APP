@@ -14,6 +14,9 @@ class _TasksScreenState extends State<TasksScreen> {
   List<Task> _tasks=[
 
     Task (name:'Learn Flutter'),
+    Task (name:'Learn HTML and CSS'),
+    Task (name:'Take feedback'),
+    Task (name:'Do Web Assignment'),
   ];
   @override
   Widget build(BuildContext context) {
@@ -122,7 +125,7 @@ class _TasksScreenState extends State<TasksScreen> {
                 topRight:Radius.circular(22.0),
               )
             ),
-            //Assignment2
+             //Assignment2
             child:ListView.builder(
               itemCount: _tasks.length,
               itemBuilder: (context, index) {
@@ -130,7 +133,7 @@ class _TasksScreenState extends State<TasksScreen> {
 
                 return ListTile(
                   title: Text(
-                    _tasks[index].name,
+                    task.name,
                     //Assignment2
                     style: task.isDone
                         ? TextStyle(
@@ -146,10 +149,10 @@ class _TasksScreenState extends State<TasksScreen> {
                         task.isDone = value!;
                       });
                     },
-                  ),
-                );
-              },
-            )
+                  )//CheckBox,
+                );//ListTile
+              }//itemBuilder,
+            )//ListviewBuilder
 
           ),//container
           )

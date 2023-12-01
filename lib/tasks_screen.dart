@@ -1,7 +1,20 @@
 import 'package:flutter/material.dart';
-class TasksScreen extends StatelessWidget {
+import 'add_task_screen.dart';
+import 'task.dart';
+
+class TasksScreen extends StatefulWidget {
   const TasksScreen({super.key});
 
+  @override
+  State<TasksScreen> createState() => _TasksScreenState();
+}
+
+class _TasksScreenState extends State<TasksScreen> {
+
+  List<Task> _tasks=[
+
+    Task (name:'Learn Flutter'),
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -10,7 +23,37 @@ class TasksScreen extends StatelessWidget {
         backgroundColor:Colors.lightBlueAccent,
         child:Icon(Icons.add, color:Colors.white,),
         onPressed:(){
-          _showDialogBox(context);
+          //Assignment1 Extra Task
+          //Comment out to see
+         // _showDialogBox(context);
+
+          showModalBottomSheet(
+            context:context,
+            isScrollControlled:true,
+            builder:(context) => SingleChildScrollView(
+              child:Container(
+
+
+                padding:EdgeInsets.only(
+                  bottom:MediaQuery.of(context).viewInsets.bottom,
+
+                ),//EdgeInsets
+
+                child:AddTaskScreen(
+                  onAddTask:(newTask) {
+                    setState(() {
+                      _tasks.add(Task(name: newTask));
+                    });
+                  },
+
+                ),//ADD TASK SCREEN
+
+              ),//Container
+
+            ),//SingleChildScrollView
+
+          );
+
         },
       ),//button
       body:Column(
@@ -55,7 +98,7 @@ class TasksScreen extends StatelessWidget {
                   fontWeight:FontWeight.w700,
                 ),
                 ),
-                Text("3 Tasks",
+                Text("${_tasks.length} Tasks",
                 style:TextStyle(
 
                 color:Colors.white,
@@ -71,6 +114,7 @@ class TasksScreen extends StatelessWidget {
 
             padding: EdgeInsets.symmetric(horizontal: 20.0),
             //height:100,
+            //Assignment 1
             decoration:BoxDecoration(
            color: Colors.white,
               borderRadius: BorderRadius.only(
@@ -78,6 +122,35 @@ class TasksScreen extends StatelessWidget {
                 topRight:Radius.circular(22.0),
               )
             ),
+            //Assignment2
+            child:ListView.builder(
+              itemCount: _tasks.length,
+              itemBuilder: (context, index) {
+                var task = _tasks[index];
+
+                return ListTile(
+                  title: Text(
+                    _tasks[index].name,
+                    //Assignment2
+                    style: task.isDone
+                        ? TextStyle(
+                      decorationThickness: 2.20,
+                      decoration: TextDecoration.lineThrough,
+                    )
+                        : TextStyle(),
+                  ),
+                  trailing: Checkbox(
+                    value: task.isDone,
+                    onChanged: (value) {
+                      setState(() {
+                        task.isDone = value!;
+                      });
+                    },
+                  ),
+                );
+              },
+            )
+
           ),//container
           )
 
@@ -91,12 +164,19 @@ class TasksScreen extends StatelessWidget {
 }
 
 
-void _showDialogBox(BuildContext context) {
+
+
+
+
+//Assignment1
+/*
+void _showDialogBox(BuildContext context)
+{
   showModalBottomSheet(
     context: context,
-    builder: (BuildContext context) {
+    builder: (context) {
       return Container(
-        height: 190.0,
+
         width: MediaQuery.of(context).size.width,
         padding: EdgeInsets.all(16.0),
         child: Column(
@@ -159,3 +239,4 @@ SizedBox(
     },
   );
 }
+*/

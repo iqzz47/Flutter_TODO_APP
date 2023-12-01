@@ -10,6 +10,7 @@ class TasksScreen extends StatelessWidget {
         backgroundColor:Colors.lightBlueAccent,
         child:Icon(Icons.add, color:Colors.white,),
         onPressed:(){
+
           _showDialogBox(context);
 
         },
